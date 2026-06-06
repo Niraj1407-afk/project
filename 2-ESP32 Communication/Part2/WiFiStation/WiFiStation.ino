@@ -9,11 +9,9 @@
 */
 #include <Arduino.h>
 #include <WiFi.h>
-#define LED 2 
 
-const char *ssid = "CDACESD";
-const char *password = "1234567890";
-const char *serverAddress = "192.168.4.1";
+const char *ssid = "your-ssid";
+const char *password = "your-password";
 
 int btnGPIO = 0;
 int btnState = false;
@@ -21,7 +19,6 @@ int btnState = false;
 void setup() {
   Serial.begin(115200);
   delay(10);
-  pinMode(LED, OUTPUT);
 
   // Set GPIO0 Boot button as input
   pinMode(btnGPIO, INPUT);
@@ -58,13 +55,6 @@ void setup() {
         Serial.println("[WiFi] WiFi is connected!");
         Serial.print("[WiFi] IP address: ");
         Serial.println(WiFi.localIP());
-        // digitalWrite(LED,HIGH);
-        // delay(200);
-        // digitalWrite(LED,LOW);
-        // delay(200);
-        // digitalWrite(LED,HIGH);
-        // delay(200);
-        // digitalWrite(LED,LOW);
         return;
         break;
       default:
@@ -98,24 +88,4 @@ void loop() {
     }
     delay(1000);
   }
-  
-  WiFiClient client;
-  if(client.connect(serverAddress,80))
-  {
-  int receivedval = client.parseInt();
-  Serial.print("Number Received From AccessPoint:-");
-  Serial.println(receivedval);
-  if(receivedval > 50)
-  {
-      for(int i=0; i<4; i++)
-      {
-          digitalWrite(LED, HIGH);
-          delay(1000);
-          digitalWrite(LED, LOW);
-          delay(1000);
-      }
-      
-  }
-  delay(2000);
-}
 }
